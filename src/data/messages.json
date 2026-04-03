@@ -1,0 +1,32 @@
+[
+  {
+    "id": "classico-01",
+    "category": "classico",
+    "message": "Perdi o Jogo. Agora a culpa e sua por ter me lembrado."
+  },
+  {
+    "id": "classico-02",
+    "category": "classico",
+    "message": "Voce perdeu o Jogo. Eu tambem. Ninguem saiu ileso."
+  },
+  {
+    "id": "sarcastico-01",
+    "category": "sarcastico",
+    "message": "Parabens. Seu premio por lembrar do Jogo e perder imediatamente."
+  },
+  {
+    "id": "sarcastico-02",
+    "category": "sarcastico",
+    "message": "Excelente trabalho. Bastou um pensamento e la se foi sua sequencia."
+  },
+  {
+    "id": "dramatico-01",
+    "category": "dramatico",
+    "message": "Em algum lugar, uma trilha sonora triste toca porque voce perdeu o Jogo."
+  },
+  {
+    "id": "dramatico-02",
+    "category": "dramatico",
+    "message": "Mais um dia normal interrompido pela constatacao inevitavel: perdi o Jogo."
+  }
+]

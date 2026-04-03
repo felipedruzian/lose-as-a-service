@@ -1,0 +1,138 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Lose-as-a-service API",
+    "version": "1.0.0",
+    "description": "API local para retornar mensagens aleatorias de derrota relacionadas a O Jogo."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:3000",
+      "description": "Servidor local v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "status",
+      "description": "Informacoes basicas da API"
+    },
+    {
+      "name": "perdi",
+      "description": "Mensagens aleatorias de derrota"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": ["status"],
+        "summary": "Verifica o status da API",
+        "responses": {
+          "200": {
+            "description": "Payload inicial da API",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RootResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/perdi": {
+      "get": {
+        "tags": ["perdi"],
+        "summary": "Retorna uma mensagem aleatoria de derrota",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "string",
+              "enum": ["classico", "sarcastico", "dramatico"]
+            },
+            "required": false,
+            "description": "Filtra por categoria antes de sortear a mensagem"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mensagem sorteada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoseMessageResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categoria nao encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RootResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "lose-as-a-service"
+          },
+          "status": {
+            "type": "string",
+            "example": "ok"
+          },
+          "message": {
+            "type": "string",
+            "example": "Perdi o Jogo. Agora voce tambem."
+          },
+          "docs": {
+            "type": "string",
+            "example": "/docs"
+          }
+        },
+        "required": ["name", "status", "message", "docs"]
+      },
+      "LoseMessageResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "classico-01"
+          },
+          "category": {
+            "type": "string",
+            "example": "classico"
+          },
+          "message": {
+            "type": "string",
+            "example": "Perdi o Jogo. Agora a culpa e sua por ter me lembrado."
+          }
+        },
+        "required": ["id", "category", "message"]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "No messages found for category: corporativo"
+          }
+        },
+        "required": ["error"]
+      }
+    }
+  }
+}

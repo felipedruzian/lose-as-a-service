@@ -1,0 +1,16 @@
+name: lose-as-a-service
+
+services:
+  lose-as-a-service:
+    image: lose-as-a-service:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lose-as-a-service
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+      NODE_ENV: production
+    ports:
+      - "0.0.0.0:${HOST_PORT:-3100}:3000"
+    restart: unless-stopped

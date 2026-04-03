@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lose-as-a-service</title>
+    <meta
+      name="description"
+      content="Frontend local em TypeScript para explorar a API Lose-as-a-service e testar a biblioteca Pretext."
+    />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">LOCAL V1 • O JOGO SEM VPN, SEM DRAMA, SO DERROTA</p>
+        <h1>Lose-as-a-service</h1>
+        <p class="hero-copy">
+          Uma interface minima para perder imediatamente, inspecionar a API e ver o
+          <code>@chenglou/pretext</code> calculando o texto antes da UI encostar no DOM.
+        </p>
+      </header>
+
+      <main class="layout">
+        <section class="card hero-card">
+          <div class="hero-card__topbar">
+            <div>
+              <span class="loss-badge">voce perdeu</span>
+              <p class="hero-card__lede">
+                Uma frase sorteada da API ocupa o centro. Abaixo, o laboratorio mostra como o
+                mesmo texto se comporta no `pretext` e no fluxo normal do navegador.
+              </p>
+            </div>
+            <div class="hero-card__actions">
+              <button id="shuffle-button" class="primary-button" type="button">
+                Perder de novo
+              </button>
+              <span class="loss-counter">
+                perdas nesta sessao:
+                <strong id="loss-count-value">0</strong>
+              </span>
+            </div>
+          </div>
+
+          <div class="loss-stage">
+            <div class="loss-target" aria-hidden="true"></div>
+            <div id="loss-lines" class="loss-lines" aria-live="polite"></div>
+          </div>
+
+          <div class="hero-card__footer">
+            <div>
+              <span class="meta-label">categoria</span>
+              <strong id="category-value">...</strong>
+            </div>
+            <div>
+              <span class="meta-label">id</span>
+              <strong id="message-id-value">...</strong>
+            </div>
+            <nav class="mini-links">
+              <a href="/docs" target="_blank" rel="noreferrer">Swagger</a>
+              <a href="/openapi.json" target="_blank" rel="noreferrer">OpenAPI</a>
+              <a href="/perdi" target="_blank" rel="noreferrer">/perdi</a>
+            </nav>
+          </div>
+        </section>
+
+        <section class="card lab-card">
+          <div class="lab-card__header">
+            <div>
+              <p class="panel-title">Laboratorio do Perdi</p>
+              <p class="lab-copy">
+                Edite a frase, arraste a largura e veja a composicao calculada por
+                <code>pretext</code> ao lado do wrapping nativo do DOM.
+              </p>
+            </div>
+          </div>
+
+          <div class="lab-toolbar">
+            <div class="toolbar-chip">
+              <span class="meta-label">largura ativa</span>
+              <strong id="width-value">420px</strong>
+            </div>
+            <div class="toolbar-chip">
+              <span class="meta-label">previsao pretext</span>
+              <strong id="metric-height">0px</strong>
+            </div>
+            <div class="toolbar-chip">
+              <span class="meta-label">altura do DOM</span>
+              <strong id="metric-dom-height">0px</strong>
+            </div>
+            <div class="toolbar-chip">
+              <span class="meta-label">linhas previstas</span>
+              <strong id="metric-lines">0</strong>
+            </div>
+            <div class="toolbar-chip toolbar-chip--action">
+              <button id="sync-button" class="secondary-button" type="button">
+                Usar frase sorteada
+              </button>
+            </div>
+          </div>
+
+          <label class="field">
+            <span class="meta-label">texto de teste</span>
+            <textarea id="playground-input" rows="4"></textarea>
+          </label>
+
+          <div class="slider-row">
+            <label class="field field--grow">
+              <span class="meta-label">largura do bloco</span>
+              <input id="width-slider" type="range" min="180" max="840" step="10" value="420" />
+            </label>
+          </div>
+
+          <div class="compare-grid">
+            <section class="compare-card">
+              <div class="compare-card__header">
+                <p class="compare-title">Pretext</p>
+                <span id="pretext-summary" class="compare-summary">0 linhas • 0px</span>
+              </div>
+              <div id="pretext-box" class="compare-box compare-box--pretext"></div>
+            </section>
+
+            <section class="compare-card">
+              <div class="compare-card__header">
+                <p class="compare-title">DOM nativo</p>
+                <span id="dom-summary" class="compare-summary">0 linhas • 0px</span>
+              </div>
+              <div id="dom-box" class="compare-box compare-box--dom">
+                <p id="dom-text" class="dom-text"></p>
+              </div>
+            </section>
+          </div>
+
+          <div class="scene-strip">
+            <button id="scene-chair" class="scene-prop" type="button" aria-label="Cadeira">
+              <span class="scene-prop__label">cadeira</span>
+              <pre class="ascii-art" aria-hidden="true">  __
+ |__|
+ |  |
+_|  |_</pre>
+            </button>
+
+            <button id="scene-table" class="scene-prop" type="button" aria-label="Mesa">
+              <span class="scene-prop__label">mesa</span>
+              <pre class="ascii-art" aria-hidden="true"> ______
+|______|
+  |  |
+  |  |</pre>
+            </button>
+
+            <button id="scene-pinhata" class="scene-prop" type="button" aria-label="Pinhata">
+              <span class="scene-prop__label">pinhata</span>
+              <pre class="ascii-art" aria-hidden="true">  /\
+ &lt;**&gt;
+ /||\
+  ||
+ /  \</pre>
+            </button>
+          </div>
+
+          <p id="scene-caption" class="scene-caption">
+            Dica: deixe a largura pequena para ver a frase perder a compostura. Clique nos
+            objetos para piorar o ambiente.
+          </p>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
