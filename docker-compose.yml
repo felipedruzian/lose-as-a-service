@@ -13,4 +13,4 @@ services:
       NODE_ENV: production
     ports:
       - "0.0.0.0:${HOST_PORT:-3100}:3000"
-    restart: unless-stopped
+    restart: "no"

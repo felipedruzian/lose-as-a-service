@@ -12,6 +12,7 @@
 - Manter a v1 segura por padrao: bind local quando rodando fora de container e exposicao controlada quando publicada na rede.
 - Tratar a API como produto principal; a UI existe para demonstracao, aprendizado e inspecao operacional.
 - Preservar o contrato OpenAPI e a UI Swagger como partes obrigatorias do projeto.
+- O Compose local e sob demanda: `restart: "no"` evita que o servico volte sozinho apos reboot ou restart do Docker.
 
 ## Estrutura Relevante
 
@@ -20,7 +21,7 @@
 - `src/data/messages.json`: dataset local das mensagens.
 - `web/`: frontend TypeScript/Vite que consome a API e demonstra `@chenglou/pretext`.
 - `Dockerfile`: imagem unica para deploy da API com a UI buildada.
-- `docker-compose.yml`: execucao persistente recomendada para homelab e rede local.
+- `docker-compose.yml`: execucao local sob demanda para homelab e rede local.
 
 ## Padroes de Execucao
 
@@ -34,6 +35,7 @@
   - `docker compose up -d --build`
   - servico publicado em `0.0.0.0:${HOST_PORT:-3100}` no host
   - UI buildada via API em `/app/`
+  - politica atual: `restart: "no"`
 
 ## Rede e Hosts
 
